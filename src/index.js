@@ -1,18 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './components/App';
+// import { createStore } from 'redux';
+import { Provider as ReduxProvider } from 'react-redux';
+import configureStore from './components/redux/configureStore';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-ReactDOM.render(
+const store = configureStore();
+
+// ReactDOM.render
+render(
   // <React.StrictMode>
-  <Router>
-    <App />
-  </Router>,
+  <ReduxProvider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </ReduxProvider>,
   // </React.StrictMode>
   document.getElementById('app')
   // 'root' originally
