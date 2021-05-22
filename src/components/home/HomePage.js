@@ -5,7 +5,7 @@ const HomePage = () => (
   <div className="jumbotron">
     <h1>Welcome to Homepage</h1>
     <p>Learn more technical</p>
-    <Link to="about" className="btn btn-primary btn-lg">
+    <Link to="/about" className="btn btn-primary btn-lg">
       Learn more
     </Link>
   </div>
