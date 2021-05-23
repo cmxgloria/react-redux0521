@@ -43,17 +43,18 @@ class CoursesPage extends React.Component {
             <li>Redux</li>
             <li>Javascript</li>
             <li>Ruby</li>
-            <li>
-              {this.props.courses.map((course) => (
-                <div key={course.title}>{course.title}</div>
-              ))}
-            </li>
+            {this.props.courses.map((course) => (
+              <div key={course.title}>
+                <li>{course.title}</li>
+              </div>
+            ))}
           </ul>
         </form>
       </div>
     );
   }
 }
+
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
   // createCourse: PropTypes.func.isRequired,
