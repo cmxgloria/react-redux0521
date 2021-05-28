@@ -29,10 +29,10 @@ class CoursesPage extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <h2>Courses</h2>
-          <h3>Add Course</h3>
-          <input
+        {/* <form onSubmit={this.handleSubmit}>
+          <h2>Courses</h2> */}
+        <h3>Add Course</h3>
+        {/* <input
             type="text"
             value={this.state.course.title}
             onChange={this.handleChange}
@@ -42,14 +42,14 @@ class CoursesPage extends React.Component {
             <li>React</li>
             <li>Redux</li>
             <li>Javascript</li>
-            <li>Ruby</li>
-            {this.props.courses.map((course) => (
-              <div key={course.title}>
-                <li>{course.title}</li>
-              </div>
-            ))}
-          </ul>
-        </form>
+            <li>Ruby</li> */}
+        {this.props.courses.map((course) => (
+          <div key={course.title}>
+            <li>{course.title}</li>
+          </div>
+        ))}
+        {/* </ul>
+        </form> */}
       </div>
     );
   }
