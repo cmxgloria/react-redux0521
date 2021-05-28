@@ -5,33 +5,39 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 class CoursesPage extends React.Component {
-  state = {
-    course: {
-      title: '',
-    },
+  // state = {
+  //   course: {
+  //     title: '',
+  //   },
 
-    // this.handleChange = this.handleChange.bind(this);
-  };
+  //   // this.handleChange = this.handleChange.bind(this);
+  // };
 
-  // arrow function inherit the binding context of their enclosing scope
-  handleChange = (event) => {
-    const course = { ...this.state.course, title: event.target.value };
-    this.setState({ course: course });
-  };
+  // // arrow function inherit the binding context of their enclosing scope
+  // handleChange = (event) => {
+  //   const course = { ...this.state.course, title: event.target.value };
+  //   this.setState({ course: course });
+  // };
 
-  handleSubmit = (event) => {
-    // this prevent form from causing the page to reload, prevent browser default behavior
-    event.preventDefault();
-    // this.props.createCourse(this.state.course);
-    this.props.actions.createCourse(this.state.course);
-    // alert(this.state.course.title);
-  };
+  // handleSubmit = (event) => {
+  //   // this prevent form from causing the page to reload, prevent browser default behavior
+  //   event.preventDefault();
+  //   // this.props.createCourse(this.state.course);
+  //   this.props.actions.createCourse(this.state.course);
+  //   // alert(this.state.course.title);
+  // };
+
+  componentDidMount() {
+    this.props.actions.loadCourses().catch((error) => {
+      alert('Loading courses failed' + error);
+    });
+  }
   render() {
     return (
       <div>
         {/* <form onSubmit={this.handleSubmit}>
           <h2>Courses</h2> */}
-        <h3>Add Course</h3>
+        {/* <h3>Add Course</h3> */}
         {/* <input
             type="text"
             value={this.state.course.title}
