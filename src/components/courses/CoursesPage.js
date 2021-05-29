@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as courseActions from '../redux/actions/courseActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import CourseList from './CourseList';
 
 class CoursesPage extends React.Component {
   // state = {
@@ -35,6 +36,8 @@ class CoursesPage extends React.Component {
   render() {
     return (
       <div>
+        <h2>Courses</h2>
+        <CourseList courses={this.props.courses} />
         {/* <form onSubmit={this.handleSubmit}>
           <h2>Courses</h2> */}
         {/* <h3>Add Course</h3> */}
@@ -49,11 +52,11 @@ class CoursesPage extends React.Component {
             <li>Redux</li>
             <li>Javascript</li>
             <li>Ruby</li> */}
-        {this.props.courses.map((course) => (
+        {/* {this.props.courses.map((course) => (
           <div key={course.title}>
             <li>{course.title}</li>
           </div>
-        ))}
+        ))} */}
         {/* </ul>
         </form> */}
       </div>
