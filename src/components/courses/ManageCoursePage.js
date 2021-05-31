@@ -5,6 +5,7 @@ import { loadAuthors } from '../redux/actions/authorActions';
 import PropTypes from 'prop-types';
 import CourseForm from './CourseForm';
 import { newCourse } from '../../../tools/mockData';
+import { Spinner } from '../common/Spinner';
 
 function ManageCoursePage({
   courses,
@@ -47,16 +48,16 @@ function ManageCoursePage({
     });
   }
 
-  return (
-    <div>
-      <CourseForm
-        course={course}
-        errors={errors}
-        authors={authors}
-        onChange={handleChange}
-        onSave={handleSave}
-      />
-    </div>
+  return authors.length === 0 || courses.lenght === 0 ? (
+    <Spinner />
+  ) : (
+    <CourseForm
+      course={course}
+      errors={errors}
+      authors={authors}
+      onChange={handleChange}
+      onSave={handleSave}
+    />
   );
 }
 
