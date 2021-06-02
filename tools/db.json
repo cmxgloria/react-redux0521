@@ -71,14 +71,6 @@
       "category": "HTML5"
     },
     {
-      "id": 11,
-      "title": "test",
-      "authorId": 3,
-      "category": "test cat",
-      "createdAt": 1622373127735,
-      "slug": "test"
-    },
-    {
       "id": 12,
       "title": "test",
       "authorId": 3,
@@ -95,20 +87,20 @@
       "slug": "test3"
     },
     {
-      "id": 14,
-      "title": "css",
-      "authorId": 1,
-      "category": "try css",
-      "createdAt": 1622373825746,
-      "slug": "css"
-    },
-    {
       "id": 15,
       "title": "jest",
       "authorId": 2,
       "category": "jest cool",
       "createdAt": 1622374855432,
       "slug": "jest"
+    },
+    {
+      "id": 16,
+      "title": "react native",
+      "authorId": 3,
+      "category": "JS",
+      "createdAt": 1622632797179,
+      "slug": "react-native"
     }
   ],
   "authors": [

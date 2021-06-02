@@ -7,7 +7,8 @@ import { bindActionCreators } from 'redux';
 import CourseList from './CourseList';
 import { Redirect } from 'react-router-dom';
 import { Spinner } from '../common/Spinner';
-import apiCallsInProgress from '../redux/reducers/apiStatusReducer';
+// import apiCallsInProgress from '../redux/reducers/apiStatusReducer';
+import { toast } from 'react-toastify';
 
 class CoursesPage extends React.Component {
   state = { redirectToAddCoursePage: false };
@@ -46,6 +47,16 @@ class CoursesPage extends React.Component {
       });
     }
   }
+
+  handleDelete = async (course) => {
+    toast.success('deleted course');
+    try {
+      await this.props.actions.deleteCourse(course);
+    } catch (error) {
+      toast.error('delete failed. ' + error.message, { autoClose: false });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -62,7 +73,10 @@ class CoursesPage extends React.Component {
             >
               Add Course
             </button>
-            <CourseList courses={this.props.courses} />
+            <CourseList
+              onDeleteClick={this.handleDelete}
+              courses={this.props.courses}
+            />
           </>
         )}
 
@@ -125,6 +139,7 @@ function mapDispatchToProps(dispatch) {
     actions: {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
+      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
     },
   };
 }
