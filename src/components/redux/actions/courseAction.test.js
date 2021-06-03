@@ -1,63 +1,63 @@
 import * as courseActions from './courseActions';
 import * as types from './actionTypes';
-import { courses } from '../../../tools/mockData';
+import { courses } from '../../../../tools/mockData';
 import { act } from 'react-testing-library';
-// import thunk from 'redux-thunk';
-// import fetchMock from 'fetch-mock';
-// import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
+import configureMockStore from 'redux-mock-store';
 
-describe('create our courses', () => {
-  it('create course successfully', () => {
-    //arrange
-    const course = courses[0];
-    const expectedAction = {
-      type: types.CREATE_COURSE_SUCCESS,
-      course: course,
-    };
-    //action
-    const action = courseActions.createCourseSuccess(course);
-    //assert
-    expect(action).toBe(expectedAction);
+// describe('create our courses', () => {
+//   it('create course successfully', () => {
+//     //arrange
+//     const course = courses[0];
+//     const expectedAction = {
+//       type: types.CREATE_COURSE_SUCCESS,
+//       course: course,
+//     };
+//     //action
+//     const action = courseActions.createCourseSuccess(course);
+//     //assert
+//     expect(action).toBe(expectedAction);
+//   });
+// });
+const middleware=[thunk];
+const mockStore=configureMockStore(middleware);
+
+describe('async actions', ()=>{
+  afterEach(()=>{
+    fetchMock.restore();
+  });
+
+  describe('locad courses thunk', ()=>{
+    it("should create BEGIN_API_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
+      fetchMock.mock("*",{
+        body:courses,
+        headers:{"content-type":"application/json"}
+      });
+
+      const expectedActions=[
+        { type:types.BEGIN_API_CALL },
+        {type:types.LOAD_COURSES_SUCCESS, courses}
+      ];
+
+      const store=mockStore({courses:[]});
+      return store.dispatch(courseActions.loadCourses())
+        .then(()=>{
+          expect(store.getActions()).toEqual(expectedActions);
+        });
   });
 });
-// const middleware=[thunk];
-// const mockStore=configureMockStore(middleware);
 
-// describe('async actions', ()=>{
-//   afterEach(()=>{
-//     fetchMock.restore();
-//   });
+describe("createCourseSuccess", ()=>{
+  it('should create a CREATE_COURSE_SUCCESS action', ()=>{
+    const course=courses[0];
+    const expectedAction={
+      type: types.CREATE_COURSE_SUCCESS,
+      course
+    };
 
-//   describe('locad courses thunk', ()=>{
-//     it("should create BEGIN_API_CALL and LOAD_COURSES_SUCCESS when loading courses", () => {
-//       fetchMock.mock("*",{
-//         body:courses,
-//         headers:{"content-type":"application/json"}
-//       });
+    const action=courseActions.createCourseSuccess(course);
 
-//       const expectedActions=[
-//         { type:types.BEGIN_API_CALL },
-//         {type:types.LOAD_COURSES_SUCCESS, courses}
-//       ];
-
-//       const store=mockStore({courses:[]});
-//       return store.dispatch(courseActions.loadCourses())
-//         .then(()=>{
-//           expect(store.getActions()).toEqual(expectedActions);
-//         });
-//   });
-// });
-
-// describe("createCourseSuccess", ()=>{
-//   it('should create a CREATE_COURSE_SUCCESS action', ()=>{
-//     const course=courses[0];
-//     const expectedAction={
-//       type: types.CREATE_COURSE_SUCCESS,
-//       course
-//     };
-
-//     const action=courseActions.createCourseSuccess(course);
-
-//     expect(action).toEqual(expectedAction);
-//   });
-// });
+    expect(action).toEqual(expectedAction);
+  });
+});
