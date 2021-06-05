@@ -13,8 +13,8 @@ export function ManageCoursePage({
   authors,
   loadCourses,
   loadAuthors,
-  saveCourse,
   history,
+  saveCourse,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -56,7 +56,7 @@ export function ManageCoursePage({
   }
   function handleSave(event) {
     event.preventDefault();
-    if (!formIsValid) return;
+    if (!formIsValid()) return;
     setSaving(true);
     saveCourse(course)
       .then(() => {
@@ -68,33 +68,25 @@ export function ManageCoursePage({
         setErrors({ onSave: error.message });
       });
   }
-
-  return authors.length === 0 || courses.lenght === 0 ? (
-    <Spinner />
-  ) : (
-    <CourseForm
-      course={course}
-      errors={errors}
-      authors={authors}
-      onChange={handleChange}
-      onSave={handleSave}
-      saving={saving}
-    />
+  return (
+    <>
+      courses.length === 0 || authors.length === 0 ? (
+      <Spinner />
+      ) : (
+      <CourseForm
+        course={course}
+        errors={errors}
+        authors={authors}
+        onChange={handleChange}
+        onSave={handleSave}
+        saving={saving}
+      />
+      );
+    </>
   );
 }
 
-ManageCoursePage.propTypes = {
-  authors: PropTypes.array.isRequired,
-  courses: PropTypes.array.isRequired,
-  course: PropTypes.object.isRequired,
-  // createCourse: PropTypes.func.isRequired,
-  loadCourses: PropTypes.func.isRequired,
-  loadAuthors: PropTypes.func.isRequired,
-  saveCourse: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-};
-
-export function getCourseBySlug(courses, slug) {
+function getCourseBySlug(courses, slug) {
   return courses.find((course) => course.slug === slug) || null;
 }
 function mapStateToProps(state, ownProps) {
@@ -106,7 +98,7 @@ function mapStateToProps(state, ownProps) {
       : newCourse;
   return {
     course: course,
-    courses: state.authors,
+    courses: state.courses,
     authors: state.authors,
   };
 }
@@ -115,6 +107,17 @@ const mapDispatchToProps = {
   loadCourses,
   loadAuthors,
   saveCourse,
+};
+
+ManageCoursePage.propTypes = {
+  authors: PropTypes.array.isRequired,
+  courses: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
+  // createCourse: PropTypes.func.isRequired,
+  loadCourses: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
